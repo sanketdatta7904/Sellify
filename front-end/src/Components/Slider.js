@@ -3,11 +3,15 @@ import ArrowLeftOutlined from "@mui/icons-material/ArrowLeftOutlined";
 import ArrowRightOutlined from "@mui/icons-material/ArrowRightOutlined";
 import { useState } from "react";
 import { sliderItems } from "../data";
+import { mobile } from "../responsive.js";
+
+
 const Container = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
   overflow: hidden;
+  ${mobile({ display: "none" })};
 `;
 
 const Wrapper = styled.div`
