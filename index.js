@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const dotenv = require("dotenv")
+dotenv.config();
+
 const mongoose = require("mongoose")
 const cors = require("cors")
 
@@ -10,7 +12,6 @@ const productRoute = require("./routes/product")
 const orderRoute = require("./routes/order")
 const stripeRoute = require("./routes/stripe")
 
-dotenv.config();
 
 mongoose.connect(process.env.MONGODB_URL)
 .then(() => console.log("DB connection success"))

@@ -1,21 +1,28 @@
 const router = require("express").Router();
-const stripe = require("stripe")(process.env.STRIPE_KEY);
+const KEY =  process.env.STRIPE_KEY
+const Stripe = require('stripe')
+const stripe = Stripe(KEY);
 
-router.post("/payment", (req, res) => {
-  stripe.charges.create(
+router.post("/payment", async (req, res) => {
+  try{
+    console.log(req.headers)
+  console.log(req.body)
+  const result = await stripe.paymentIntents.create(
     {
-      source: req.body.tokenId,
       amount: req.body.amount,
+      payment_method_types: ['card'],
       currency: "usd",
-    },
-    (stripeErr, stripeRes) => {
-      if (stripeErr) {
-        res.status(500).json(stripeErr);
-      } else {
-        res.status(200).json(stripeRes);
+    })
+      if (result) {
+        console.log("resposne in strip", result)
+        res.status(200).json(result);
       }
-    }
-  );
+  
+  }catch(err){
+    console.log("Error is stripe", err)
+    res.status(500).json(err);
+  }
+  
 });
 
 module.exports = router;
